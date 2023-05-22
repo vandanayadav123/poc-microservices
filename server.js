@@ -5,6 +5,7 @@ import http from "http";
 import cors from "cors";
 import bodyParser from "body-parser";
 import routes from "./src/routes/routes";
+
 const router = express.Router();
 
 class server {
@@ -25,15 +26,16 @@ class server {
   }
   connectToDB() {}
   initRoutes() {
-    this.routes = new routes(this.app, this.router).init();
+    this.routes = new routes(this.app, this.router);
   }
   init() {
+    this.appConfig();
     this.enableCors();
     this.connectToDB();
     this.initRoutes();
 
     this.server.listen(this.port, () => {
-      console.log("listen on ", this.server.address().port);
+      console.log("listen on PORT ::", this.server.address().port);
     });
   }
 }
